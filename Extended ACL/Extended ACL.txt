@@ -1,0 +1,133 @@
+Step 1 : Assign IP addresses to the PCs and web server.
+
+IP Address : 10.0.0.2
+Subnet Mask : 255.0.0.0
+Default Gateway : 10.0.0.1
+
+IP Address : 20.0.0.2
+Subnet Mask : 255.0.0.0
+Default Gateway : 20.0.0.1
+
+IP Address : 30.0.0.2
+Subnet Mask : 255.0.0.0
+Default Gateway : 30.0.0.1
+
+IP Address : 40.0.0.2 (Web Server)
+Subnet Mask : 255.0.0.0
+Default Gateway : 40.0.0.1
+
+***************************************************************
+
+Step 2 : Assign IP addresses to routers.
+
+Router 1
+--------
+Router>enable
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 10.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#interface Serial2/0
+Router(config-if)#ip address 15.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial2/0, changed state to down
+Router(config-if)#exit
+Router(config)#interface FastEthernet1/0
+Router(config-if)#ip address 20.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet1/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet1/0, changed state to up
+
+Router(config-if)#exit
+
+Router 2
+--------
+Router>enable
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 30.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#interface Serial2/0
+Router(config-if)#ip address 15.0.0.2 255.0.0.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface Serial2/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial2/0, changed state to up
+	
+Router(config)#interface FastEthernet1/0
+Router(config-if)#ip address 40.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet1/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet1/0, changed state to up
+
+Router(config-if)#exit
+
+***************************************************************
+
+Step 3 : Create extended ACL rules to router nearer to source.
+         (Here, Router 1.)
+Router(config)#access-list 125 deny tcp host 20.0.0.2 host 40.0.0.2 eq www
+Router(config)#access-list 125 permit ip any any
+
+***************************************************************
+
+Step 4 : Apply extended ACL to router interface nearer to source.
+         (Here, Router 1 interface.)
+Router(config)#interface FastEthernet1/0
+Router(config-if)#ip access-group 125 in
+Router(config-if)#exit
+
+***************************************************************
+
+Step 5 : Configure RIP protocol. (OSPF or EIGRP can also be done in 
+         place of RIP.)
+
+Router 1
+--------
+Router(config)#router rip
+Router(config-router)#network 10.0.0.0
+Router(config-router)#network 20.0.0.0
+Router(config-router)#network 15.0.0.0
+Router(config-router)#exit
+
+Router 2
+--------
+Router(config)#router rip
+Router(config-router)#network 20.0.0.0
+Router(config-router)#network 40.0.0.0
+Router(config-router)#network 15.0.0.0
+Router(config-router)#exit
+
+***************************************************************
+
+Step 6 : Now, HTTP service will not be possible to second PC from
+         the web server. That is, the HTML page at URL 40.0.0.2 will
+         not be accessible by the second PC. But still packets can be
+         sent and received.
