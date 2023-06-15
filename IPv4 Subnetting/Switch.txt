@@ -1,0 +1,115 @@
+**********************************************************************
+NAME : ASWIN KRISHNA R                                 CLASS : S6-IT
+                               IPv4 SUBNETIING
+DATE :                                                 ROLL NO : 15
+**********************************************************************
+
+Switch 1
+--------
+
+1) Assign hostname to a switch.
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname Class-A
+Class-A(config)#
+
+**********************************************************************
+
+2) Secure access to the console line.
+
+Class-A(config)#line console 0
+Class-A(config-line)#password aswin
+Class-A(config-line)#login
+Class-A(config-line)#exit
+
+**********************************************************************
+
+3) Secure access to the vty lines.
+
+Class-A(config)#line vty 0 15
+Class-A(config-line)#password aswin
+Class-A(config-line)#login
+
+**********************************************************************
+
+4) Secure privileged Exec mode access (Encrypted Password).
+
+Class-A(config-line)#enable secret aswink
+
+**********************************************************************
+
+5) Encrypt all plain text passwords.
+
+Class-A(config-line)#service password-encryption
+
+**********************************************************************
+
+6) Configure a MOTD banner.
+
+Class-A(config-line)#banner motd "Warning!!"
+
+**********************************************************************
+
+7) Configure the IP address on interface VLAN 1 on the switch.
+
+Class-A(config)#interface vlan1
+Class-A(config-if)#ip address 192.168.0.2 255.255.255.192
+Class-A(config-if)#ip default-gateway 192.168.0.1
+
+**********************************************************************
+
+Switch 2
+--------
+
+1) Assign hostname to a switch.
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname Class-B
+Class-B(config)#
+
+**********************************************************************
+
+2) Secure access to the console line.
+
+Class-B(config)#line console 0
+Class-B(config-line)#password aswin
+Class-B(config-line)#login
+Class-B(config-line)#exit
+
+**********************************************************************
+
+3) Secure access to the vty lines.
+
+Class-B(config)#line vty 0 15
+Class-B(config-line)#password aswin
+Class-B(config-line)#login
+
+**********************************************************************
+
+4) Secure privileged Exec mode access (Encrypted Password).
+
+Class-B(config-line)#enable secret aswink
+
+**********************************************************************
+
+5) Encrypt all plain text passwords.
+
+Class-B(config-line)#service password-encryption
+
+**********************************************************************
+
+6) Configure a MOTD banner.
+
+Class-B(config-line)#banner motd "Warning!!"
+
+**********************************************************************
+
+7) Configure the IP address on interface VLAN 1 on the switch.
+
+Class-B(config-if)#ip address 192.168.0.66 255.255.255.192
+Class-B(config-if)#no shutdown
+Class-B(config-if)#ip default-gateway 192.168.0.65

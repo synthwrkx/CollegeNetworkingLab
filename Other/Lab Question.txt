@@ -1,0 +1,194 @@
+Step 1 : Give IP addresses to all PCs.
+
+PC 1
+-----
+IP Address : 192.168.5.2
+Subnet Mask : 255.255.255.0
+Default Gateway : 192.168.5.1
+
+PC 2
+-----
+IP Address : 192.168.6.2
+Subnet Mask : 255.255.255.0
+Default Gateway : 192.168.6.1
+
+PC 3
+-----
+IP Address : 192.168.7.2
+Subnet Mask : 255.255.255.0
+Default Gateway : 192.168.7.1
+
+PC 4
+-----
+IP Address : 192.168.8.2
+Subnet Mask : 255.255.255.0
+Default Gateway : 192.168.8.1
+
+*****************************************************************
+
+Step 2 : Assign IP addresses to routers.
+
+Router 1
+--------
+Router>enable
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.5.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#interface Serial2/0
+Router(config-if)#ip address 192.168.1.2 255.255.255.0
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial2/0, changed state to down
+Router(config-if)#exit
+Router(config)#
+Router(config)#interface Serial3/0
+Router(config-if)#ip address 192.168.2.1 255.255.255.0
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial3/0, changed state to down
+Router(config-if)#exit
+
+Router 2
+--------
+Router>enable
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.6.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#interface Serial2/0
+Router(config-if)#ip address 192.168.3.1 255.255.255.0
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial2/0, changed state to down
+Router(config-if)#exit
+Router(config)#interface Serial3/0
+Router(config-if)#ip address 192.168.2.2 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface Serial3/0, changed state to up
+
+Router(config-if)#exit
+
+Router 3
+--------
+Router>enable
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.7.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#interface Serial2/0
+Router(config-if)#ip address 192.168.3.2 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface Serial2/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial2/0, changed state to up
+
+Router(config)#interface Serial3/0
+Router(config-if)#ip address 192.168.4.1 255.255.255.0
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial3/0, changed state to down
+Router(config-if)#exit
+
+Router 4
+--------
+Router>enable
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.8.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#interface Serial2/0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface Serial2/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial2/0, changed state to up
+
+Router(config)#interface Serial3/0
+Router(config-if)#ip address 192.168.4.2 255.255.255.0
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial3/0, changed state to up
+Router(config-if)#exit
+
+*****************************************************************
+
+Step 3 : Assign RIP to all routers.
+
+Router 1
+--------
+Router(config)#router rip
+Router(config-router)#network 192.168.5.0
+Router(config-router)#network 192.168.1.0
+Router(config-router)#network 192.168.2.0
+Router(config-router)#exit
+
+Router 2
+--------
+Router(config)#router rip	
+Router(config-router)#network 192.168.6.0
+Router(config-router)#network 192.168.2.0
+Router(config-router)#network 192.168.3.0
+Router(config-router)#exit
+
+Router 3
+--------
+Router(config)#router rip
+Router(config-router)#network 192.168.7.0
+Router(config-router)#network 192.168.3.0
+Router(config-router)#network 192.168.4.0
+Router(config-router)#exit
+
+Router 4
+--------
+Router(config)#router rip
+Router(config-router)#network 192.168.8.0
+Router(config-router)#network 192.168.1.0
+Router(config-router)#network 192.168.4.0
+Router(config-router)#exit
+
+*****************************************************************
+
+Step 4 : Verify the connections by pinging or sending packets.

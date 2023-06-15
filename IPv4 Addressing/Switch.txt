@@ -1,0 +1,117 @@
+**********************************************************************
+NAME : ASWIN KRISHNA R                                 CLASS : S6-IT
+                               IPv4 ADDRESSING
+DATE :                                                 ROLL NO : 15
+**********************************************************************
+
+Switch 1
+--------
+
+1) Assign hostname to a switch.
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname S1
+S1(config)#
+
+**********************************************************************
+
+2) Secure access to the console line.
+
+S1(config)#line console 0
+S1(config-line)#password aswin
+S1(config-line)#login
+S1(config-line)#exit
+
+**********************************************************************
+
+3) Secure access to the vty lines.
+
+S1(config)#line vty 0 15
+S1(config-line)#password aswin
+S1(config-line)#login
+
+**********************************************************************
+
+4) Secure privileged Exec mode access (Encrypted Password).
+
+S1(config-line)#enable secret aswink
+
+**********************************************************************
+
+5) Encrypt all plain text passwords.
+
+S1(config-line)#service password-encryption
+
+**********************************************************************
+
+6) Configure a MOTD banner.
+
+S1(config-line)#banner motd "Warning!"
+
+**********************************************************************
+
+7) Configure the IP address on interface VLAN 1 on the switch.
+
+S1(config)#interface vlan1
+S1(config-if)#ip address 192.168.0.2 255.255.255.0
+S1(config-if)#ip default-gateway 192.168.0.1
+
+**********************************************************************
+
+Switch 2
+--------
+
+1) Assign hostname to a switch.
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname S2
+S2(config)#
+
+**********************************************************************
+
+2) Secure access to the console line.
+
+S2(config)#line console 0
+S2(config-line)#password aswin
+S2(config-line)#login
+S2(config-line)#exit
+
+**********************************************************************
+
+3) Secure access to the vty lines.
+
+S2(config)#line vty 0 15
+S2(config-line)#password aswin
+S2(config-line)#login
+
+**********************************************************************
+
+4) Secure privileged Exec mode access (Encrypted Password).
+
+S2(config-line)#enable secret aswink
+
+**********************************************************************
+
+5) Encrypt all plain text passwords.
+
+S2(config-line)#service password-encryption
+
+**********************************************************************
+
+6) Configure a MOTD banner.
+
+S2(config-line)#banner motd "Warning!"
+
+**********************************************************************
+
+7) Configure the IP address on interface VLAN 1 on the switch.
+
+S2(config)#interface vlan1
+S2(config-if)#ip address 192.168.1.2 255.255.255.0
+S2(config-if)#ip default-gateway 192.168.1.1
+
+**********************************************************************

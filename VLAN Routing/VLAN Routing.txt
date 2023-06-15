@@ -1,0 +1,73 @@
+*************************************************************
+NAME : ASWIN KRISHNA R                       CLASS : S6 - IT
+                           VLAN ROUTING
+DATE : 05/07/2022                            ROLL NO : 15
+*************************************************************
+
+Step 1 : Configure the VLAN within the switch.
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 2
+Switch(config-vlan)#name FrontOffice
+Switch(config-vlan)#exit
+Switch(config)#vlan 3
+Switch(config-vlan)#name BackOffice
+Switch(config-vlan)#exit
+
+*************************************************************
+
+Step 2 : Assign the specified interfaces in the specific VLANs 
+         and define the access ports.
+
+Switch(config)#interface FastEthernet0/1
+Switch(config-if)#switchport access vlan 2
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet1/1
+Switch(config-if)#switchport access vlan 2
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet2/1
+Switch(config-if)#switchport access vlan 3
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet3/1
+Switch(config-if)#switchport access vlan 3
+Switch(config-if)#exit
+
+*************************************************************
+
+Step 3 : Verify the connections between hosts.
+
+Host 1
+------
+
+PC>ping 192.168.10.3
+
+Pinging 192.168.10.3 with 32 bytes of data:
+
+Reply from 192.168.10.3: bytes=32 time=63ms TTL=128
+Reply from 192.168.10.3: bytes=32 time=62ms TTL=128
+Reply from 192.168.10.3: bytes=32 time=62ms TTL=128
+Reply from 192.168.10.3: bytes=32 time=63ms TTL=128
+
+Ping statistics for 192.168.10.3:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 62ms, Maximum = 63ms, Average = 62ms
+
+Host 2
+------
+
+PC>ping 192.168.10.5
+
+Pinging 192.168.10.5 with 32 bytes of data:
+
+Reply from 192.168.10.5: bytes=32 time=62ms TTL=128
+Reply from 192.168.10.5: bytes=32 time=63ms TTL=128
+Reply from 192.168.10.5: bytes=32 time=62ms TTL=128
+Reply from 192.168.10.5: bytes=32 time=62ms TTL=128
+
+Ping statistics for 192.168.10.5:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 62ms, Maximum = 63ms, Average = 62ms

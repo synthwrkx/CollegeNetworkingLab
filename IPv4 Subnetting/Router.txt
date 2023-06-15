@@ -1,0 +1,70 @@
+**********************************************************************
+NAME : ASWIN KRISHNA R                                 CLASS : S6-IT
+                               IPv4 SUBNETIING
+DATE :                                                 ROLL NO : 15
+**********************************************************************
+
+1) Assign hostname to a router.
+
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R1
+R1(config)#
+
+**********************************************************************
+
+2) Secure access to the console line.
+
+R1(config)#line console 0
+R1(config-line)#password aswin
+R1(config-line)#login
+R1(config-line)#exit
+R1(config)#
+
+**********************************************************************
+
+3) Secure privileged Exec mode access (PlainText Password).
+
+R1(config)#enable password class
+
+**********************************************************************
+
+4) Secure privileged Exec mode access (Encrypted Password).
+
+R1(config)#enable secret aswink
+
+**********************************************************************
+
+5) Secure access to the vty lines.
+
+R1(config)#line vty 0 15
+R1(config-line)#password aswin
+R1(config-line)#login
+R1(config-line)#exit
+R1(config)#
+
+**********************************************************************
+
+6) Encrypt all plain text passwords.
+
+R1(config)#service password-encryption
+
+**********************************************************************
+
+7) Configure a MOTD banner.
+
+R1(config)#banner motd “Unauthorized access is strictly prohibited”
+R1(config)#exit
+
+**********************************************************************
+
+8) Configure GigabitEthernet0/0 and GigabitEthernet0/1 interfaces.
+
+R1(config)#interface GigabitEthernet0/0
+R1(config-if)#ip address 192.168.0.1 255.255.255.192
+R1(config-if)#no shutdown
+
+R1(config)#interface GigabitEthernet0/1
+R1(config-if)#ip address 192.168.0.65 255.255.255.192
+R1(config-if)#no shutdown
